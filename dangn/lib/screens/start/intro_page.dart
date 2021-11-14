@@ -7,40 +7,66 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child:Padding(
-        padding: const EdgeInsets.symmetric(horizontal:20),
-        child: Column(
-        mainAxisAlignment:MainAxisAlignment.spaceAround ,
-        children: [
-          Text('당근 마켓',
-          style: TextStyle(fontSize:30,color:Theme.of(context).colorScheme.primary,fontWeight:FontWeight.w600)//
-          ),
-          ExtendedImage.asset('assets/imgs/carrot_intro.png'),
-          Text('우리 동네 중고 직거래 당근마켓',
-          style: TextStyle(fontSize:22,fontWeight:FontWeight.w700)),
-          Text(' 당근마켓은 동네 직거래 마켓이에요.\n  내 동네를 설정하고 시작해보세요!',
-          style: TextStyle(fontSize:16,fontWeight:FontWeight.w500)),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextButton(
-                  onPressed: () {
-                    logger.d('on text button click');
-                  },
-                  child: Text(
-                    '내 동네 설정하고 시작하기',
-                    style:TextStyle(color: Colors.white),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        Size size = MediaQuery.of(context).size;
+        final imgSize = size.width - 40;
+        final sizeOfposImg = imgSize * 0.1;
+
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('당근 마켓',
+                    style: Theme.of(context).textTheme.headline3!.copyWith(
+                        color: Theme.of(context).colorScheme.primary) //
                     ),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue[400],
-                  ), 
-              ),
-            ],
+                SizedBox(
+                  width: imgSize,
+                  height: imgSize,
+                  child: Stack(
+                    children: [
+                      ExtendedImage.asset('assets/imgs/carrot_intro.png'),
+                      Positioned(
+                          width: sizeOfposImg,
+                          left: imgSize * 0.45,
+                          top: imgSize*0.45,
+                          height: sizeOfposImg,
+                          child: ExtendedImage.asset(
+                              'assets/imgs/carrot_intro_pos.png')),
+                    ],
+                  ),
+                ),
+                Text('우리 동네 중고 직거래 당근마켓',
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
+                Text(' 당근마켓은 동네 직거래 마켓이에요.\n  내 동네를 설정하고 시작해보세요!',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        logger.d('on text button click');
+                      },
+                      child: Text(
+                        '내 동네 설정하고 시작하기',
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blue[400],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
-    ),
-      ),
+        );
+      },
     );
   }
 }
