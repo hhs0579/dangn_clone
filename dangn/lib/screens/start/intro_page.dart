@@ -3,7 +3,8 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatelessWidget {
-  const IntroPage({Key? key}) : super(key: key);
+  PageController controller;
+  IntroPage(this.controller, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class IntroPage extends StatelessWidget {
                       Positioned(
                           width: sizeOfposImg,
                           left: imgSize * 0.45,
-                          top: imgSize*0.45,
+                          top: imgSize * 0.45,
                           height: sizeOfposImg,
                           child: ExtendedImage.asset(
                               'assets/imgs/carrot_intro_pos.png')),
@@ -50,6 +51,9 @@ class IntroPage extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () {
+                        controller.animateToPage(1,
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.easeInOut);
                         logger.d('on text button click');
                       },
                       child: Text(
