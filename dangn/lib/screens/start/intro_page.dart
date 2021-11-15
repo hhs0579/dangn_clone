@@ -42,10 +42,10 @@ class IntroPage extends StatelessWidget {
                 ),
                 Text('우리 동네 중고 직거래 당근마켓',
                     style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
+                        Theme.of(context).textTheme.headline6),
                 Text(' 당근마켓은 동네 직거래 마켓이에요.\n  내 동네를 설정하고 시작해보세요!',
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                        Theme.of(context).textTheme.subtitle1),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [

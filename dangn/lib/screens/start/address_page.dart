@@ -1,3 +1,6 @@
+import 'package:dangn/utils/logger.dart';
+import 'package:extended_image/extended_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddressPage extends StatelessWidget {
@@ -6,8 +9,9 @@ class AddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      minimum: EdgeInsets.all(20),
+      minimum: EdgeInsets.only(left:20,right:20),
       child: Column(
+        crossAxisAlignment:CrossAxisAlignment.stretch,
         children: [
           TextFormField(
             decoration: InputDecoration(
@@ -29,8 +33,38 @@ class AddressPage extends StatelessWidget {
               ),
               ),
           ),
+          TextButton.icon(
+            onPressed: () {  },
+            icon: Icon(
+              CupertinoIcons.compass,
+              color: Colors.white,
+              size: 20,
+              ),
+            label: Text(
+              '현재 위치 찾기',style:Theme.of(context).textTheme.button,
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor:Theme.of(context).primaryColor,
+                minimumSize: Size(10,45)
+                ),
+            ),
+          Expanded(
+            
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              itemBuilder: (context,index){
+              logger.d('index:$index');
+              return ListTile(
+                leading:Icon(Icons.image),
+                trailing: ExtendedImage.asset('assets/imgs/a.png'),
+                title: Text('address $index'),
+                subtitle: Text('subtitle $index')
+                );
+            },itemCount: 20,
+            ),
+          )
         ],
-      ),
+      ), 
     );
   }
 }

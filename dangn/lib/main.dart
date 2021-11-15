@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:dangn/router/locations.dart';
-import 'package:dangn/screens/auth_screen.dart';
+import 'package:dangn/screens/start_screen.dart';
 import 'package:dangn/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dangn/utils/logger.dart';
@@ -11,7 +11,7 @@ final _routerDelegate = BeamerDelegate(guards: [
       check: (context, location) {
         return false;
       },
-      showPage: BeamPage(child:AuthScreen()))
+      showPage: BeamPage(child:StartScreen()))
 ], locationBuilder: BeamerLocationBuilder(beamLocations: [HomeLocation()]));
 void main() {
   logger.d('my first log by logger!!');
@@ -55,8 +55,15 @@ class DangnApp extends StatelessWidget {
           headline3: TextStyle(
             fontFamily: 'DoHyeon',
             ),
-        button: TextStyle(color:Colors.white))
-      ),
+        button: TextStyle(color:Colors.white),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor:Colors.white,
+          elevation: 2,
+          toolbarTextStyle: TextStyle(
+            color:Colors.black87)
+            ),
+      ), 
       routeInformationParser: BeamerParser(),
       routerDelegate: _routerDelegate,
     );
