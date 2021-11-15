@@ -50,8 +50,11 @@ class DangnApp extends StatelessWidget {
     return MaterialApp.router(
       theme: ThemeData(
         primarySwatch: Colors.orange,
-        fontFamily:'DoHyeon',
-        textTheme: TextTheme(headline3: TextStyle(fontFamily: 'DoHyeon'),
+        fontFamily:'DoHyeon',hintColor: Colors.grey[350],
+        textTheme: TextTheme(
+          headline3: TextStyle(
+            fontFamily: 'DoHyeon',
+            ),
         button: TextStyle(color:Colors.white))
       ),
       routeInformationParser: BeamerParser(),
