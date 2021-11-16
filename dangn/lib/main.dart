@@ -57,6 +57,9 @@ class DangnApp extends StatelessWidget {
             ),
         button: TextStyle(color:Colors.white),
         ),
+        textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom(
+          backgroundColor: Colors.orange,primary:Colors.white,minimumSize: Size(48,48),  
+        )),
         appBarTheme: AppBarTheme(
           backgroundColor:Colors.white,
           elevation: 2,
