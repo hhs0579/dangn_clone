@@ -1,6 +1,8 @@
+import 'package:dangn/states/user_provider.dart';
 import 'package:dangn/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class IntroPage extends StatelessWidget {
   PageController controller;
@@ -8,6 +10,7 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger.d('current user state ${context.read<UserProvider>().userState}');
     return LayoutBuilder(
       builder: (context, constraints) {
         Size size = MediaQuery.of(context).size;
@@ -41,11 +44,9 @@ class IntroPage extends StatelessWidget {
                   ),
                 ),
                 Text('우리 동네 중고 직거래 당근마켓',
-                    style:
-                        Theme.of(context).textTheme.headline6),
+                    style: Theme.of(context).textTheme.headline6),
                 Text(' 당근마켓은 동네 직거래 마켓이에요.\n  내 동네를 설정하고 시작해보세요!',
-                    style:
-                        Theme.of(context).textTheme.subtitle1),
+                    style: Theme.of(context).textTheme.subtitle1),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
