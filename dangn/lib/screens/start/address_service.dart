@@ -4,7 +4,7 @@ import 'package:dangn/utils/logger.dart';
 import 'package:dio/dio.dart';
 
 class AddressService {
-  void searchAddressByStr(String text) async {
+  Future searchAddressByStr(String text) async {
     final formData = {
       'key': VWORLD_KEY,
       'request': 'search',
@@ -18,7 +18,9 @@ class AddressService {
         .catchError((e) {
       logger.e(e.message);
     });
-    AddressModel addressModel = AddressModel.fromJson(response.data["result"]);
+    AddressModel addressModel =
+        AddressModel.fromJson(response.data["response"]);
     logger.d(addressModel);
+    return addressModel;
   }
 }
