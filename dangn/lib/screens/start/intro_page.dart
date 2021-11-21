@@ -1,5 +1,6 @@
 import 'package:dangn/states/user_provider.dart';
 import 'package:dangn/utils/logger.dart';
+import 'package:dio/dio.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,11 +52,14 @@ class IntroPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextButton(
-                      onPressed: () {
-                        controller.animateToPage(1,
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeInOut);
-                        logger.d('on text button click');
+                      onPressed: () async {
+                        // controller.animateToPage(1,
+                        //     duration: Duration(milliseconds: 400),
+                        //     curve: Curves.easeInOut);
+                        // logger.d('on text button click');
+                        var response =
+                            await Dio().get('https://randomuser.me/api/');
+                        logger.d(response);
                       },
                       child: Text(
                         '내 동네 설정하고 시작하기',
