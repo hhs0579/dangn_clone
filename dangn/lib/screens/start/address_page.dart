@@ -15,6 +15,7 @@ class AddressPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            controller: _addressController,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.search,
@@ -33,7 +34,7 @@ class AddressPage extends StatelessWidget {
             onPressed: () {
               final text = _addressController.text;
               if(text.isNotEmpty){
-                AddressService().searchAddressBystr(text);
+                AddressService().searchAddressByStr(text);
               }
             },
             icon: Icon(

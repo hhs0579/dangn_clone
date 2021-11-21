@@ -94,7 +94,7 @@ class _AuthPageState extends State<AuthPage> {
                         },
                         child: Text('인증 문자 발송')),
                     SizedBox(
-                      height: common_padding,
+                      height: common_padding, 
                     ),
                     AnimatedOpacity(
                       duration: duration,
