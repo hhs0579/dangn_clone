@@ -56,7 +56,7 @@ class DangnApp extends StatelessWidget {
       },
       child: MaterialApp.router(
         theme: ThemeData(
-          primarySwatch: Colors.orange,
+          primarySwatch: Colors.blue,
           fontFamily: 'DoHyeon',
           hintColor: Colors.grey[350],
           textTheme: TextTheme(
@@ -67,14 +67,17 @@ class DangnApp extends StatelessWidget {
           ),
           textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-            backgroundColor: Colors.orange,
+            backgroundColor: Colors.blue,
             primary: Colors.white,
             minimumSize: Size(48, 48),
           )),
           appBarTheme: AppBarTheme(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.blue,
               elevation: 2,
               toolbarTextStyle: TextStyle(color: Colors.black87)),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                selectedItemColor: Colors.black87,unselectedItemColor: Colors.black54
+              ),
         ),
         routeInformationParser: BeamerParser(),
         routerDelegate: _routerDelegate,
