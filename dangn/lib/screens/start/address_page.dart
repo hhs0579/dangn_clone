@@ -4,6 +4,9 @@ import 'package:dangn/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddressPage extends StatefulWidget {
   AddressPage({Key? key}) : super(key: key);
@@ -18,6 +21,12 @@ class _AddressPageState extends State<AddressPage> {
   TextEditingController _addressController = TextEditingController();
 
   @override
+  void dispose() {
+    _addressController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       minimum: EdgeInsets.only(left: 20, right: 20),
@@ -27,6 +36,7 @@ class _AddressPageState extends State<AddressPage> {
           TextFormField(
             onFieldSubmitted: (text) async {
               _addressModel = await AddressService().searchAddressByStr(text);
+              setState(() {});
             },
             controller: _addressController,
             decoration: InputDecoration(
@@ -44,12 +54,7 @@ class _AddressPageState extends State<AddressPage> {
             ),
           ),
           TextButton.icon(
-            onPressed: () {
-              final text = _addressController.text;
-              if (text.isNotEmpty) {
-                AddressService().searchAddressByStr(text);
-              }
-            },
+            onPressed: () {},
             icon: Icon(
               CupertinoIcons.compass,
               color: Colors.white,
@@ -60,32 +65,50 @@ class _AddressPageState extends State<AddressPage> {
               style: Theme.of(context).textTheme.button,
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              itemBuilder: (context, index) {
-                logger.d('index:$index');
-                if (_addressModel == null ||
-                    _addressModel!.result == null ||
-                    _addressModel!.result!.items == null||
-                    _addressModel!.result!.items![index].address==null
-                    ) return Container();
-                return ListTile(
-                  title: Text(
-                      _addressModel!.result!.items![index].address!.road??""),
-                  subtitle: Text(
-                      _addressModel!.result!.items![index].address!.parcel??""),
-                );
-              },
-              itemCount: (_addressModel == null ||
+          if (_addressModel != null)
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                itemBuilder: (context, index) {
+                  logger.d('index:$index');
+                  if (_addressModel == null ||
                       _addressModel!.result == null ||
-                      _addressModel!.result!.items == null)
-                  ? 0
-                  : _addressModel!.result!.items!.length,
-            ),
-          )
+                      _addressModel!.result!.items == null ||
+                      _addressModel!.result!.items![index].address == null)
+                    return Container();
+                  return ListTile(
+                    onTap: () {
+                      _saveAddressOnSharedPreference(
+                          _addressModel!.result!.items![index].address!.road ??
+                              "");
+                        context.read<PageController>().animateToPage(2,
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.easeInOut);
+                    },
+                    title: Text(
+                        _addressModel!.result!.items![index].address!.road ??
+                            ""),
+                    subtitle: Text(
+                        _addressModel!.result!.items![index].address!.parcel ??
+                            ""),
+                  );
+                },
+                itemCount: (_addressModel == null ||
+                        _addressModel!.result == null ||
+                        _addressModel!.result!.items == null)
+                    ? 0
+                    : _addressModel!.result!.items!.length,
+              ),
+            )
         ],
       ),
     );
+  }
+
+
+
+  _saveAddressOnSharedPreference(String address) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('address', address);
   }
 }

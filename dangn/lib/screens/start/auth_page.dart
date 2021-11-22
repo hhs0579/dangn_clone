@@ -1,10 +1,11 @@
 import 'package:dangn/states/user_provider.dart';
+import 'package:dangn/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:dangn/constants/common_size.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/src/provider.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthPage extends StatefulWidget {
   AuthPage({Key? key}) : super(key: key);
@@ -82,6 +83,7 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                     TextButton(
                         onPressed: () {
+                          
                           if (_formkey.currentState != null) {
                             bool passed =
                                 _formkey.currentState!.validate(); //널값 아니여야함
@@ -94,7 +96,7 @@ class _AuthPageState extends State<AuthPage> {
                         },
                         child: Text('인증 문자 발송')),
                     SizedBox(
-                      height: common_padding, 
+                      height: common_padding,
                     ),
                     AnimatedOpacity(
                       duration: duration,
@@ -168,6 +170,12 @@ class _AuthPageState extends State<AuthPage> {
       _verificationStatus = VerificationStatus.verificationDone;
     });
     context.read<UserProvider>().setUserAuth(true);
+  }
+
+  _getAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String address = prefs.getString('address') ?? "";
+    logger.d("Address from shared pref - $address");
   }
 }
 

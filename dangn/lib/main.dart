@@ -17,6 +17,7 @@ final _routerDelegate = BeamerDelegate(guards: [
 ], locationBuilder: BeamerLocationBuilder(beamLocations: [HomeLocation()]));
 void main() {
   logger.d('my first log by logger!!');
+  Provider.debugCheckInvalidValueType = null;
   runApp(MyApp());
 }
 
